@@ -23,6 +23,7 @@ def conversation_loop():
 
         # Step 2: Generate AI Response
         response_text = generate_response_with_gemini(text)
+        print(f"AI response: {response_text}")
 
         # Step 3: Convert response to speech
         text_to_speech(response_text, lang=detected_language)
