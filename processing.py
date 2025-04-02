@@ -48,11 +48,13 @@ def listen_for_speech(timeout=3):
                     return None, None
 
 
-def generate_response_with_gemini(text, max_tokens=100):
+def generate_response_with_gemini(text, max_tokens=200):
     """Generate a response using Google's Gemini API."""
     prompt = (
-        "Respond concisely and clearly. Keep it short and suitable for speech synthesis. "
-        f"Here is the input: {text}"
+        "You are having a natural speech conversation with a user. Your responses should be clear, concise, and to the point. "
+        "Adjust response length dynamically based on context—short for simple queries, longer for complex ones. "
+        f"User: {text}\n"
+        "AI:"
     )
 
     try:
@@ -63,11 +65,14 @@ def generate_response_with_gemini(text, max_tokens=100):
             "top_p": 0.9
         })
 
-        return response.text if hasattr(response, "text") else "Error generating response."
+        # Ensure response is correctly extracted
+        if hasattr(response, "text") and response.text.strip():
+            return response.text.strip()
+        else:
+            return "Sorry, I couldn't generate a response."
     except Exception as e:
         print(f"Gemini API Error: {e}")
-        return "Sorry, I couldn't generate a response."
-
+        return "Sorry, there was an issue generating a response."
 
 
 def text_to_speech(text, lang):
