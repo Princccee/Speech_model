@@ -3,7 +3,7 @@ import requests
 import time
 
 # Define the Flask API URL
-FLASK_API_URL = "http://127.0.0.1:5000/start"
+FLASK_API_URL = "http://127.0.0.1:5001/start"
 
 st.title("🎙️ AI Voice Assistant")
 st.markdown("Click the button to start speaking and let AI respond.")
